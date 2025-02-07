@@ -2,25 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class CompletedTask extends Model
 {
     use HasFactory;
+    protected $fillable = ['task_id', 'attempt_id'];
 
-    protected $fillable = [
-        'task_id',
-        'attempt_id'
-    ];
-
-    // The completed task belongs to a task.
+    // A CompletedTask belongs to a Task.
     public function task()
     {
         return $this->belongsTo(Task::class);
     }
 
-    // The completed task belongs to an attempt.
+    // A CompletedTask belongs to an Attempt.
     public function attempt()
     {
         return $this->belongsTo(Attempt::class);

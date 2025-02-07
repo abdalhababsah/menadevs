@@ -2,25 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class PreferredLanguage extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'language_id'];
 
-    protected $fillable = [
-        'user_id',
-        'language_id'
-    ];
-
-    // The user who prefers this language.
+    // A PreferredLanguage belongs to a User.
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // The language that is preferred.
+    // A PreferredLanguage belongs to a Language.
     public function language()
     {
         return $this->belongsTo(Language::class);

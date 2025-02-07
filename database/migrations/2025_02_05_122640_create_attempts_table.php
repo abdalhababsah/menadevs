@@ -9,10 +9,13 @@ return new class extends Migration {
         Schema::create('attempts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
+            $table->foreignId('attempter_id')->constrained('users')->onDelete('cascade');
             $table->text('attempter_response');
             $table->integer('chosen_response');
             $table->text('justification');
-            $table->foreignId('attempter_id')->constrained('users')->onDelete('cascade');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
+            $table->integer('duration_seconds')->nullable();
             $table->timestamps();
         });
     }

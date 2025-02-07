@@ -13,6 +13,9 @@ return new class extends Migration {
             $table->integer('rating');
             $table->text('feedback');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->timestamp('review_start_time')->nullable();
+            $table->timestamp('review_end_time')->nullable();
+            $table->integer('review_duration_seconds')->nullable();
             $table->timestamps();
         });
     }

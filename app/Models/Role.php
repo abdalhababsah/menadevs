@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
@@ -11,9 +11,15 @@ class Role extends Model
 
     protected $fillable = ['name'];
 
-    // A role can have many users.
+    // A Role has many Users.
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    // A Role has many activity logs.
+    public function activityLogs()
+    {
+        return $this->hasMany(UserActivityLog::class);
     }
 }

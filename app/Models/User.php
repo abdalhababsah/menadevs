@@ -2,73 +2,76 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable; // For authentication
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'role_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
-
+    // A User belongs to a Role.
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function preferredLanguages()
-    {
-        return $this->hasMany(PreferredLanguage::class);
-    }
-
+    // A User (as an attempter) has many Attempts.
     public function attempts()
     {
         return $this->hasMany(Attempt::class, 'attempter_id');
     }
 
-    public function attemptsReviewers()
+    // A User (acting as a reviewer) may have many review entries.
+    public function attemptReviews()
     {
-        return $this->hasMany(AttemptsReviewer::class, 'attempter_id');
+        return $this->hasMany(AttemptReviewer::class, 'attempter_id');
     }
 
+    // A User has many Dimensions (filled_by).
+    public function dimensions()
+    {
+        return $this->hasMany(Dimension::class, 'filled_by');
+    }
+
+    // A User has many PreferredLanguage entries.
+    public function preferredLanguages()
+    {
+        return $this->hasMany(PreferredLanguage::class);
+    }
+
+    // A User has many UserLogin records.
     public function userLogins()
     {
         return $this->hasMany(UserLogin::class);
+    }
+
+    // A User has many Activity Logs.
+    public function activityLogs()
+    {
+        return $this->hasMany(UserActivityLog::class);
+    }
+
+    // A User has many TaskSkips.
+    public function taskSkips()
+    {
+        return $this->hasMany(TaskSkip::class);
     }
 }

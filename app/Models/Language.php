@@ -2,22 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model
 {
     use HasFactory;
-
     protected $fillable = ['name'];
 
-    // A language can have multiple settings.
+    // A Language has many Settings.
     public function settings()
     {
         return $this->hasMany(Setting::class);
     }
 
-    // A language can be selected by many users as their preferred language.
+    // A Language has many PreferredLanguage entries.
     public function preferredLanguages()
     {
         return $this->hasMany(PreferredLanguage::class);

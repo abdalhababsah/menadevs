@@ -2,34 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Attempt extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'task_id',
         'attempter_response',
         'chosen_response',
         'justification',
-        'attempter_id'
+        'attempter_id',
+        'start_time',
+        'end_time',
+        'duration_seconds'
     ];
 
-    // An attempt belongs to a task.
+    // An Attempt belongs to a Task.
     public function task()
     {
         return $this->belongsTo(Task::class);
     }
 
-    // An attempt belongs to a user (the tasker).
-    public function user()
+    // An Attempt belongs to a User (as attempter).
+    public function attempter()
     {
         return $this->belongsTo(User::class, 'attempter_id');
     }
 
-    // An attempt may have one completed task record.
+    // An Attempt may have one CompletedTask.
     public function completedTask()
     {
         return $this->hasOne(CompletedTask::class);

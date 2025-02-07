@@ -10,6 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('parent_task_id')->nullable()->constrained('tasks')->onDelete('cascade');
             $table->string('task_description');
+            $table->text('prompt');
             $table->string('response_1');
             $table->string('response_2');
             $table->foreignId('settings_id')->constrained('settings')->onDelete('cascade');
