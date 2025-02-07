@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CategoryController As AdminCategoryController;
+use App\Http\Controllers\Admin\LanguageController As  AdminLanguageController;
 use App\Http\Controllers\Attempter\AttempterDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Reviewer\ReviewerDashboardController;
@@ -17,6 +19,8 @@ Route::middleware('auth')->group(function () {
 // Admin Routes with `auth` middleware and `admin` prefix
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('languages', AdminLanguageController::class);
     // Add additional admin routes here...
 });
 

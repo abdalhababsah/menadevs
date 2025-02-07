@@ -238,11 +238,6 @@
                 </div>
             </div>
 
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item right-bar-toggle me-2">
-                    <i data-feather="settings" class="icon-lg"></i>
-                </button>
-            </div>
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-light-subtle border-start border-end" id="page-header-user-dropdown"
