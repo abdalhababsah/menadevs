@@ -36,4 +36,20 @@ Route::middleware(['auth', 'attempter'])->prefix('attempter')->group(function ()
     Route::get('/dashboard', [AttempterDashboardController::class, 'index'])->name('tasker.dashboard');
     // Add additional tasker routes here...
 });
+
+
+// Route for 404 errors.
+Route::get('/error/404', function () {
+    return response()->view('errors.error404', [], 404);
+})->name('error.404');
+
+// Route for 500 errors.
+Route::get('/error/500', function () {
+    return response()->view('errors.error500', [], 500);
+})->name('error.500');
+
+// Fallback route to catch any undefined URL and redirect to your custom 404 page.
+Route::fallback(function () {
+    return redirect()->route('error.404');
+});
 require __DIR__.'/auth.php';
