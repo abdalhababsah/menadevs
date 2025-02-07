@@ -23,8 +23,15 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (Throwable $exception) {
-            if (method_exists($exception, 'getStatusCode') && $exception->getStatusCode() === 403) {
-                return redirect()->route('error.403');
+            if (method_exists($exception, 'getStatusCode')) {
+                $status = $exception->getStatusCode();
+                if ($status === 403) {
+                    return redirect()->route('error.403');
+                } elseif ($status === 404) {
+                    return redirect()->route('error.404');
+                } elseif ($status === 500) {
+                    return redirect()->route('error.500');
+                }
             }
             return null;
         });

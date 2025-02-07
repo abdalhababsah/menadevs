@@ -16,8 +16,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        $user = $request->user()->select(['id', 'first_name', 'last_name', 'email', 'role_id'])->with('role')->first();
+        // dd($user);
+        return view('profile.index', [
+            'user' => $user,
         ]);
     }
 
