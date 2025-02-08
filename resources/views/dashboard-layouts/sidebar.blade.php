@@ -68,7 +68,7 @@
                         <span data-key="t-tasks">Tasks</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="extended-lightbox.html" data-key="t-tasks">Available Tasks</a></li>
+                        <li><a href="{{route('admin.tasks.available')}}" data-key="t-tasks">Available Tasks</a></li>
                         <li><a href="extended-rangeslider.html" data-key="t-range-slider">Reviewed Tasks</a></li>
                         <li><a href="extended-lightbox.html" data-key="t-tasks">Completed Tasks</a></li>
                         <li><a href="{{route('admin.tasks.create')}}" data-key="t-range-slider">Create Tasks</a></li>

@@ -20,57 +20,131 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.tasks.store') }}">
                         @csrf
-
-                        <div class="mb-3">
-                            <label class="form-label">Task Description <span class="text-danger small error-message"></span></label>
-                            <textarea id="task_description" name="task_description" class="form-control"></textarea>
-                        </div>
                         
-                        <div class="mb-3">
-                            <label class="form-label">Category <span class="text-danger small error-message"></span></label>
-                            <select name="category_id" class="form-control">
-                                <option value="">Select Category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Language <span class="text-danger small error-message"></span></label>
-                            <select name="language_id" class="form-control">
-                                <option value="">Select Language</option>
-                                @foreach ($languages as $language)
-                                    <option value="{{ $language->id }}">{{ $language->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Maximum Review Level <span class="text-danger small error-message"></span></label>
-                            <input type="number" name="max_review_level" class="form-control" value="3">
-                        </div>
-
-                        <!-- Dimensions Selection -->
-                        <div id="dimensions-container">
-                            <label class="form-label">Task Dimensions <span class="text-danger small error-message"></span></label>
-                            <div class="input-group mb-2">
-                                <select name="dimensions[]" class="form-control">
-                                    <option value="">Select Dimension</option>
-                                    @foreach ($dimensions as $dimension)
-                                        <option value="{{ $dimension->id }}">{{ $dimension->name }}</option>
-                                    @endforeach
-                                </select>
-                                <button type="button" id="add-dimension-btn" class="btn btn-success">+</button>
+                        <!-- Task Details Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Task Details</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="form-label">Task Description <span class="text-danger">*</span> 
+                                            <span class="text-danger small error-message"></span>
+                                        </label>
+                                        <textarea id="task_description" name="task_description" class="form-control"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Number of Copies (Max 100) <span class="text-danger small error-message"></span></label>
-                            <input type="number" name="task_count" class="form-control" min="1" max="100">
+            
+                        <!-- Classification Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Classification</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Category <span class="text-danger">*</span>
+                                            <span class="text-danger small error-message"></span>
+                                        </label>
+                                        <select name="category_id" class="form-select">
+                                            <option value="">Select Category</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Language <span class="text-danger">*</span>
+                                            <span class="text-danger small error-message"></span>
+                                        </label>
+                                        <select name="language_id" class="form-select">
+                                            <option value="">Select Language</option>
+                                            @foreach ($languages as $language)
+                                                <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Create Task</button>
+            
+                        <!-- Duration Settings Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Duration Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Maximum Review Level <span class="text-danger">*</span>
+                                            <span class="text-danger small error-message"></span>
+                                        </label>
+                                        <input type="number" name="max_review_level" class="form-control" value="3">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Reviewing Duration (Minutes) <span class="text-danger">*</span>
+                                            <span class="text-danger small error-message"></span>
+                                        </label>
+                                        <input type="number" name="reviewing_duration_minutes" class="form-control" min="1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Attempting Duration (Minutes) <span class="text-danger">*</span>
+                                            <span class="text-danger small error-message"></span>
+                                        </label>
+                                        <input type="number" name="attempting_duration_minutes" class="form-control" min="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Dimensions Section -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Task Dimensions</h5>
+                                <button type="button" id="add-dimension-btn" class="btn btn-sm btn-success">
+                                    <i class="fas fa-plus me-1"></i> Add Dimension
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="dimensions-container">
+                                    <div class="input-group mb-2">
+                                        <select name="dimensions[]" class="form-select">
+                                            <option value="">Select Dimension</option>
+                                            @foreach ($dimensions as $dimension)
+                                                <option value="{{ $dimension->id }}">{{ $dimension->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Task Copies Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Task Copies</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Number of Copies (Max 100) <span class="text-danger">*</span>
+                                            <span class="text-danger small error-message"></span>
+                                        </label>
+                                        <input type="number" name="task_count" class="form-control" min="1" max="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Submit Button -->
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save me-2"></i>Create Task
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -170,6 +244,25 @@
                     .closest('.mb-3').find('.error-message').text('Enter a valid review level.');
             } else {
                 maxReviewField.removeClass('is-invalid')
+                    .closest('.mb-3').find('.error-message').text('');
+            }
+            let reviewingDurationField = $('input[name="reviewing_duration_minutes"]');
+            if (reviewingDurationField.val().trim() === '' || reviewingDurationField.val() <= 0) {
+                isValid = false;
+                reviewingDurationField.addClass('is-invalid')
+                    .closest('.mb-3').find('.error-message').text('Enter a valid reviewing duration.');
+            } else {
+                reviewingDurationField.removeClass('is-invalid')
+                    .closest('.mb-3').find('.error-message').text('');
+            }
+
+            let attemptingDurationField = $('input[name="attempting_duration_minutes"]');
+            if (attemptingDurationField.val().trim() === '' || attemptingDurationField.val() <= 0) {
+                isValid = false;
+                attemptingDurationField.addClass('is-invalid')
+                    .closest('.mb-3').find('.error-message').text('Enter a valid attempting duration.');
+            } else {
+                attemptingDurationField.removeClass('is-invalid')
                     .closest('.mb-3').find('.error-message').text('');
             }
 

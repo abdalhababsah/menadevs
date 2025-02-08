@@ -14,9 +14,6 @@ class Attempt extends Model
         'chosen_response',
         'justification',
         'attempter_id',
-        'start_time',
-        'end_time',
-        'duration_seconds'
     ];
 
     // An Attempt belongs to a Task.

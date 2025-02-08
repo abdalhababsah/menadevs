@@ -21,6 +21,8 @@ class CreateTaskRequest extends FormRequest
             'dimensions' => 'required|array',
             'dimensions.*' => 'required|string|max:255',
             'task_count' => 'nullable|integer|min:1|max:100',
+            'reviewing_duration_minutes' => 'required|integer|min:1',
+            'attempting_duration_minutes' => 'required|integer|min:1',
         ];
     }
 }

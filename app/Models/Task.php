@@ -15,6 +15,8 @@ class Task extends Model
         'response_1',
         'response_2',
         'settings_id',
+        'uploaded_file',
+        'tasker_instruction_to_reviewer'
     ];
 
     // A Task may have a parent Task.
@@ -75,5 +77,23 @@ class Task extends Model
     public function taskSkips()
     {
         return $this->hasMany(TaskSkip::class);
+    }
+
+    // A Task belongs to a Category through Setting
+    public function category()
+    {
+        return $this->hasOneThrough(Category::class, Setting::class, 'id', 'id', 'settings_id', 'category_id');
+    }
+
+    // A Task belongs to a Language through Setting
+    public function language()
+    {
+        return $this->hasOneThrough(Language::class, Setting::class, 'id', 'id', 'settings_id', 'language_id');
+    }
+
+    // A Task has many Dimensions via TaskDimension
+    public function dimensions()
+    {
+        return $this->hasManyThrough(Dimension::class, TaskDimension::class, 'task_id', 'id', 'id', 'dimension_id');
     }
 }

@@ -12,6 +12,8 @@ return new class extends Migration {
             $table->longText('task_description');
             $table->text('prompt')->nullable();
             $table->timestamp('claim_time')->nullable();
+            $table->string('uploaded_file')->nullable();
+            $table->text('tasker_instruction_to_reviewer')->nullable();
             $table->string('response_1')->nullable();
             $table->string('response_2')->nullable();
             $table->foreignId('settings_id')->constrained('settings')->onDelete('cascade');

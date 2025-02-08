@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
-    protected $fillable = ['category_id', 'language_id', 'max_review_level'];
+    protected $fillable = ['category_id', 'language_id', 'max_review_level','reviewing_duration_minutes','attempting_duration_minutes'];
 
     // A Setting belongs to a Category.
     public function category()

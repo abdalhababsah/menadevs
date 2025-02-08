@@ -11,6 +11,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('language_id')->constrained('languages')->onDelete('cascade');
+            $table->integer('reviewing_duration_minutes');
+            $table->integer('attempting_duration_minutes');
             $table->integer('max_review_level')->default(3);
             $table->timestamps();
         });

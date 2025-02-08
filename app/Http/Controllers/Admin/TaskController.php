@@ -25,10 +25,28 @@ class TaskController extends Controller
     {
         $categories = Category::all();
         $languages = Language::all();
-        $dimensions = Dimension::all(); // Fetch all predefined dimensions
+        $dimensions = Dimension::all();
         return view('admin.tasks.create', compact('categories', 'languages', 'dimensions'));
     }
 
+        /**
+     * Display available tasks with filters.
+     */
+    public function availableTasks(Request $request)
+    {
+        $filters = $request->only(['category_id', 'language_id']);
+        $result = $this->taskService->getAvailableTasks($filters);
+
+        $tasks = $result['tasks'];
+        $totalTasks = $result['count'];
+
+        // Fetch filter options
+        $categories = Category::all();
+        $languages = Language::all();
+        $dimensions = Dimension::all();
+
+        return view('admin.tasks.available-tasks', compact('tasks', 'totalTasks', 'categories', 'languages', 'dimensions'));
+    }
     /**
      * Store a new task with dimensions.
      */

@@ -20,6 +20,8 @@ class TaskService
                 'language_id' => $data['language_id'],
             ], [
                 'max_review_level' => $data['max_review_level'] ?? 3,
+                'reviewing_duration_minutes' => $data['reviewing_duration_minutes'],
+                'attempting_duration_minutes' => $data['attempting_duration_minutes'],
             ]);
 
             $taskCount = $data['task_count'] ?? 1;
@@ -48,4 +50,42 @@ class TaskService
             return $createdTasks;
         });
     }
+
+
+        /**
+         * Get all available tasks (where claim_time is null) with optional filters and dimensions.
+         *
+         * @param array $filters
+         * @return array
+         */
+        public function getAvailableTasks(array $filters): array
+        {
+            $query = Task::with(['category', 'language', 'dimensions'])
+                ->whereNull('claim_time');
+        
+            // Apply category filter (through settings)
+            if (!empty($filters['category_id'])) {
+                $query->whereHas('setting', function ($q) use ($filters) {
+                    $q->where('category_id', $filters['category_id']);
+                });
+            }
+        
+            // Apply language filter (through settings)
+            if (!empty($filters['language_id'])) {
+                $query->whereHas('setting', function ($q) use ($filters) {
+                    $q->where('language_id', $filters['language_id']);
+                });
+            }
+        
+            // Paginate results
+            $tasks = $query->paginate(10);
+        
+            // Count of total available tasks
+            $count = $query->count();
+        
+            return [
+                'tasks' => $tasks,
+                'count' => $count,
+            ];
+        }
 }

@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\CategoryController As AdminCategoryController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DimensionController;
-use App\Http\Controllers\Admin\LanguageController As  AdminLanguageController;
+use App\Http\Controllers\Admin\LanguageController as AdminLanguageController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Attempter\AttempterDashboardController;
@@ -26,8 +26,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('users', UsersController::class);
     Route::resource('dimensions', DimensionController::class);
     Route::resource('languages', AdminLanguageController::class);
+
+    // tasks
     Route::get('tasks/create', [TaskController::class, 'create'])->name('admin.tasks.create');
     Route::post('tasks', [TaskController::class, 'store'])->name('admin.tasks.store');
+    Route::get('/tasks/available', [TaskController::class, 'availableTasks'])->name('admin.tasks.available');
 });
 
 // Reviewer Routes: Only accessible by users with role_id = 2 (Reviewer)
@@ -60,4 +63,4 @@ Route::get('/error/403', function () {
 Route::fallback(function () {
     return redirect()->route('error.404');
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -13,9 +13,7 @@ return new class extends Migration {
             $table->text('attempter_response');
             $table->integer('chosen_response');
             $table->text('justification');
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('end_time')->nullable();
-            $table->integer('duration_seconds')->nullable();
+
             $table->timestamps();
         });
     }
