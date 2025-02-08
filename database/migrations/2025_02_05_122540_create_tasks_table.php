@@ -9,10 +9,11 @@ return new class extends Migration {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_task_id')->nullable()->constrained('tasks')->onDelete('cascade');
-            $table->string('task_description');
-            $table->text('prompt');
-            $table->string('response_1');
-            $table->string('response_2');
+            $table->longText('task_description');
+            $table->text('prompt')->nullable();
+            $table->timestamp('claim_time')->nullable();
+            $table->string('response_1')->nullable();
+            $table->string('response_2')->nullable();
             $table->foreignId('settings_id')->constrained('settings')->onDelete('cascade');
             $table->timestamps();
         });

@@ -8,17 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Dimension extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'justification', 'filled_by', 'task_id'];
+    protected $fillable = ['name', 'description'];
 
-    // A Dimension belongs to a Task.
-    public function task()
+    // A Dimension belongs to many Tasks
+    public function tasks()
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsToMany(Task::class, 'task_dimensions')->withPivot('rating', 'justification', 'filled_by')->withTimestamps();
     }
-
-    // A Dimension belongs to a User (filled_by).
-    public function filledBy()
-    {
-        return $this->belongsTo(User::class, 'filled_by');
-    }
+    public function taskDimensions()
+{
+    return $this->hasMany(TaskDimension::class);
+}
 }

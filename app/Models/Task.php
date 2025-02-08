@@ -54,9 +54,9 @@ class Task extends Model
     }
 
     // A Task has many Dimensions.
-    public function dimensions()
+    public function taskDimensions()
     {
-        return $this->hasMany(Dimension::class);
+        return $this->hasMany(TaskDimension::class);
     }
 
     // A Task has many Screenshots.

@@ -31,8 +31,9 @@
                                             <div>
                                                 <h5 class="font-size-16 mb-1">{{ $user->first_name }} {{ $user->last_name }}
                                                 </h5>
-                                                <p class="text-muted font-size-13">{{ $user->email }}</p>
-                                                <p class="text-muted font-size-13">Role: {{ $user->role->name }}</p>
+                                                <p class="m-0 mb-0 text-muted font-size-13">{{ $user->email }}</p>
+                                                <p class="m-0 mb-0 text-muted font-size-13">Role: {{ $user->role->name }}</p>
+                                                <p class="m-0 mb-0 text-muted font-size-13">ID: {{ $user->role->id }}</p>
                                             </div>
                                         </div>
                                     </div>

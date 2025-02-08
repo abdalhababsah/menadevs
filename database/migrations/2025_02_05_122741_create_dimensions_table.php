@@ -8,10 +8,8 @@ return new class extends Migration {
     {
         Schema::create('dimensions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('justification');
-            $table->foreignId('filled_by')->constrained('users')->onDelete('cascade');
-            $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
+            $table->string('name')->unique();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }
