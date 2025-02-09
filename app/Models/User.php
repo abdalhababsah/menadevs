@@ -36,7 +36,7 @@ class User extends Authenticatable
     // A User (as an attempter) has many Attempts.
     public function attempts()
     {
-        return $this->hasMany(Attempt::class, 'attempter_id');
+        return $this->hasMany(Task::class, 'attempter_id');
     }
 
     // A User (acting as a reviewer) may have many review entries.

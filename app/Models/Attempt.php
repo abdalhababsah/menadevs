@@ -13,7 +13,6 @@ class Attempt extends Model
         'attempter_response',
         'chosen_response',
         'justification',
-        'attempter_id',
     ];
 
     // An Attempt belongs to a Task.
@@ -22,11 +21,7 @@ class Attempt extends Model
         return $this->belongsTo(Task::class);
     }
 
-    // An Attempt belongs to a User (as attempter).
-    public function attempter()
-    {
-        return $this->belongsTo(User::class, 'attempter_id');
-    }
+
 
     // An Attempt may have one CompletedTask.
     public function completedTask()

@@ -16,11 +16,10 @@ class DashboardController extends Controller
             case 1:
                 return redirect()->route('admin.dashboard');
             case 2:
-                return redirect()->route('reviewer.dashboard'); // Ensure the route name matches your route definition.
+                return redirect()->route('reviewer.dashboard'); 
             case 3:
                 return redirect()->route('attempter.dashboard');
             default:
-                // Optionally, handle other cases or abort.
                 abort(403, 'Unauthorized access.');
         }
     }

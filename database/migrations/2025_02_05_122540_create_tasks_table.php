@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->text('tasker_instruction_to_reviewer')->nullable();
             $table->string('response_1')->nullable();
             $table->string('response_2')->nullable();
+            $table->foreignId('attempter_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('settings_id')->constrained('settings')->onDelete('cascade');
             $table->timestamps();
         });

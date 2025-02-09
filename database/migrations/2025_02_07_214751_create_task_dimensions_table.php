@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
             $table->foreignId('dimension_id')->constrained('dimensions')->onDelete('cascade');
             $table->enum('rating', ['major_issue', 'minor_issue', 'partially_fulfilled', 'completely_fulfilled'])->nullable();
-            $table->text('justification')->nullable();
+            $table->text('justification_response_2')->nullable();
+            $table->text('justification_response_1')->nullable();
             $table->foreignId('filled_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

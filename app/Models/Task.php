@@ -12,6 +12,7 @@ class Task extends Model
         'parent_task_id',
         'task_description',
         'prompt',
+        'attempter_id',
         'response_1',
         'response_2',
         'settings_id',
@@ -96,4 +97,9 @@ class Task extends Model
     {
         return $this->hasManyThrough(Dimension::class, TaskDimension::class, 'task_id', 'id', 'id', 'dimension_id');
     }
+        // An Attempt belongs to a User (as attempter).
+        public function attempter()
+        {
+            return $this->belongsTo(User::class, 'attempter_id');
+        }
 }
